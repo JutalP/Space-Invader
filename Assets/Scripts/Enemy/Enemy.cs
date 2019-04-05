@@ -28,13 +28,18 @@ public class Enemy : MonoBehaviour
             myRigidbody.velocity = new Vector2(movementSpeed * Time.fixedDeltaTime, 0);
     }
 
+    public void FolkesFunktion()
+    {
+        transform.position += new Vector3(0, -0.2f,0);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         myTurnTrigger = collision.gameObject.GetComponent<AITurnTrigger>();
 
         if(collision.gameObject == myTurnTrigger || collision.gameObject.GetComponent<Enemy>())
         {
-            myTurnTrigger.AITurn();
+            return;
         }
         else
             Destroy(gameObject);

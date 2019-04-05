@@ -5,26 +5,40 @@ using UnityEngine;
 public class AITurnTrigger : MonoBehaviour
 {
     Enemy myEnemy;
+    Enemy[] myEnemyArray;
+    public bool bIsLeft;
+
+
+    private void Start()
+    {
+        myEnemyArray = GameObject.FindObjectsOfType<Enemy>();
+    }
 
     public void AITurn()
     {
-
-        if (myEnemy.bIsMovingLeft)
+        for (int i = myEnemyArray.Length -1; i >= 0; i--)
         {
-            myEnemy.bIsMovingLeft = false;
-            myEnemy.bIsMovingRight = true;
-        }
+            if (bIsLeft && myEnemyArray[i] != null)
+            {
+                myEnemyArray[i].bIsMovingLeft = false;
+                myEnemyArray[i].bIsMovingRight = true;
+                myEnemyArray[i].FolkesFunktion();
+            }
 
-        else if (myEnemy.bIsMovingRight)
-        {
-            myEnemy.bIsMovingRight = false;
-            myEnemy.bIsMovingLeft = true;
+            else if (!bIsLeft && myEnemyArray[i] != null)
+            {
+                myEnemyArray[i].bIsMovingRight = false;
+                myEnemyArray[i].bIsMovingLeft = true;
+                myEnemyArray[i].FolkesFunktion();
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        myEnemy = collision.gameObject.GetComponent<Enemy>();
-        AITurn();
+        //if (collision.gameObject.GetComponent<Enemy>())
+        //{
+            AITurn();
+        //}
     }
 }
