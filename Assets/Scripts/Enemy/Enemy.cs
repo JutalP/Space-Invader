@@ -32,9 +32,9 @@ public class Enemy : MonoBehaviour
     {
         myTurnTrigger = collision.gameObject.GetComponent<AITurnTrigger>();
 
-        if(collision.gameObject == myTurnTrigger || gameObject)
+        if(collision.gameObject == myTurnTrigger || collision.gameObject.GetComponent<Enemy>())
         {
-            return;
+            myTurnTrigger.AITurn();
         }
         else
             Destroy(gameObject);

@@ -6,9 +6,8 @@ public class AITurnTrigger : MonoBehaviour
 {
     Enemy myEnemy;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void AITurn()
     {
-        myEnemy = collision.gameObject.GetComponent<Enemy>();
 
         if (myEnemy.bIsMovingLeft)
         {
@@ -21,5 +20,11 @@ public class AITurnTrigger : MonoBehaviour
             myEnemy.bIsMovingRight = false;
             myEnemy.bIsMovingLeft = true;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        myEnemy = collision.gameObject.GetComponent<Enemy>();
+        AITurn();
     }
 }
